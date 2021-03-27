@@ -2,28 +2,30 @@ version: '3'
 services:
   client:
     container_name: yohdev-starter_react
+    restart: always
+    ports:
+      - 3000:3000
     build:
       dockerfile: Dockerfile.dev
       context: ./client
     volumes:
       - /app/node_modules
       - ./client:/app
+    networks:
+      - internal
   api:
     container_name: yohdev-starter_api
+    restart: always
+    ports:
+      - 8080:8080
     build:
       dockerfile: Dockerfile.dev
       context: ./server
     volumes:
       - /app/node_modules
       - ./server:/app
-  nginx:
-    container_name: yohdev-starter_nginx
-    depends_on:
-      - api
-      - client
-    restart: always
-    build:
-      dockerfile: Dockerfile.dev
-      context: ./nginx
-    ports:
-      - '3050:80'
+    networks:
+      - internal
+networks:
+    internal:
+        driver: bridge
