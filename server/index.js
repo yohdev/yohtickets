@@ -1,13 +1,44 @@
-// const keys = require('./keys');
-
 // Express App Setup
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-
+const express = require('express')
+// DB init
+const {MongoClient} = require('mongodb');
+// Config import
+const db = require('./config/keys')
+// Express 
 const app = express();
-app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
+// ENV
+const PORT = 8080;
+
+
+const main = async () =>{
+  const client = new MongoClient(db,{ useNewUrlParser: true, useUnifiedTopology: true });
+  try {
+      // Connect to the MongoDB cluster
+      await client.connect();
+
+      // Make the appropriate DB calls
+      await  listDatabases(client);
+
+  } catch (err) {
+      console.error(err);
+  } finally {
+      await client.close();
+  }
+}
+
+main();
+
+const listDatabases = async (client) =>{
+  databasesList = await client.db().admin().listDatabases();
+
+  console.log("Databases:");
+  databasesList.databases.forEach(db => console.log(` - ${db.name}`));
+}
+
+
+
+
 
 
 // Express route handlers
@@ -25,6 +56,6 @@ app.get('/values/current', async (req, res) => {
 });
 
 
-app.listen(8080, (err) => {
-  console.log(`Listening at http://localhost:8080`)
+app.listen(8080, (process.env.PORT || PORT), () => {
+  console.log(`Listening at http://localhost:${PORT}`)
 });

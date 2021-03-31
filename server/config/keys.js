@@ -1,0 +1,1 @@
+module.exports = uri = "mongodb+srv://yohdev:ZHgzDLQYthv8kvuQ@react.ine18.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
