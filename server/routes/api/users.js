@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-// User Model
+// Import User Model
 const User = require('../../models/User');
 
 // @route GET api/users
@@ -15,22 +15,26 @@ router.get('/', async (req,res)=>{
       .catch(err => res.status(400).json('Error: ' + err));
     }
     catch (err) {
-    await console.error(err);
+    console.error(err);
     } 
   })
 
-router.post('/', async (req,res)=>{
-  const username = req.body.username;
+// @route POST api/users
+// @desc POST A User
+// @access auth
 
-  const newUser = new User({username});
-    try{ 
-      await newUser.save()
-        .then(() => res.json('User added!'))
-        .catch(err => res.status(400).json('Error: ' + err));
-    }
-    catch (err) {
-    await console.error(err);
-    } 
+router.post('/', async (req,res)=>{
+  const user = new User({
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password,
+  });
+  try {
+    const savedUser = await user.save();
+    res.json({ error: null, data: savedUser });
+  } catch (error) {
+    res.status(400).json({ error });
+  }
 })
 
 
