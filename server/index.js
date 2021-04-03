@@ -1,13 +1,14 @@
 // Express App Setup
-const express = require('express')
-const dotenv = require('dotenv').config({ path: '.env'})
-const app = express();
+import express from 'express';
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env'})
+let app = express();
 app.use(express.json());
 
 // DB init
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 // JWT 
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 const accessTokenSecret = 'youraccesstokensecret';
 
 // ENV
@@ -34,7 +35,9 @@ catch (err) {
 main();
 
 // Import Routes
-const authRouter = require('./routes/api/users');
+import { authRouter } from './routes/api/users.js';
+
+//const authRouter = require('./routes/api/users');
 
 // Express route handlers
 const api = async () =>{

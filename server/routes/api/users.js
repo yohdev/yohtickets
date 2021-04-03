@@ -1,8 +1,8 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
 
 // Import User Model
-const User = require('../../models/User');
+import User from '../../models/User.js';
 
 // @route GET api/users
 // @desc Get All Users
@@ -37,6 +37,4 @@ router.post('/', async (req,res)=>{
   }
 })
 
-
-
-module.exports = router;
+export {router as authRouter};
