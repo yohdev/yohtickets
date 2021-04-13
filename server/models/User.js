@@ -1,7 +1,4 @@
 import mongoose from 'mongoose';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -20,6 +17,12 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
+    required: true,
+    min: 6,
+    max: 1024,
+  },
+  user_type_id:{
+    type:String,
     required: true,
     min: 6,
     max: 1024,

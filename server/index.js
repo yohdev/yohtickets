@@ -15,11 +15,11 @@ import InitiateMongoServer from './db.js';
 InitiateMongoServer();
 
 // Import Routes
-import {userRouter} from './routes/api/users.js';
+import {authRoute} from './routes/api/index.js';
 //import auth from './middleware/authmiddleware.js';
 
 // Express route handlers
-app.use('/api', userRouter);
+app.use('/api', authRoute);
 
 
 app.listen(port, () => {
