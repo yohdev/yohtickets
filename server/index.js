@@ -16,7 +16,6 @@ InitiateMongoServer();
 
 // Import Routes
 import {authRoute} from './routes/api/index.js';
-//import auth from './middleware/authmiddleware.js';
 
 // Express route handlers
 app.use('/api', authRoute);

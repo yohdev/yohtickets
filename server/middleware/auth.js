@@ -16,7 +16,7 @@ export const verifyToken = async (req, res, next) => {
         next();
 
     } catch (error) {
-        res.status(400).send("Invalid Token");
+        return await res.status(400).send("Invalid Token");
     }
 
 
@@ -24,13 +24,13 @@ export const verifyToken = async (req, res, next) => {
 
 export const IsUser = async (req, res, next) => {
     if (req.user.user_type_id === 'user') {
-        await next();
+       return  await next();
     }
-    return res.status(401).send("Unauthorized!");   
+    return await res.status(401).send("Unauthorized!");   
 }
 export const IsAdmin = async (req, res, next) => {
     if (req.user.user_type_id === 'admin') {
-        await next();
+        return await next();
     }
-    return res.status(401).send("Unauthorized!");
+    return await res.status(401).send("Unauthorized!");
 }
