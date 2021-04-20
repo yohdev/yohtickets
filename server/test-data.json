@@ -2,7 +2,7 @@
 "email":"vkaukeano21@gmail.com",
 "name":"Von Kaukeano",
 "password": "1234567",
-"user_type_id":"admin"
+"role":"admin"
 },
 {  
 "email":"vkaukeano21@gmail.com",

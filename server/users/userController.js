@@ -1,4 +1,4 @@
-import User from '../models/User.js';
+import User from './userModel.js';
 import dotenv from 'dotenv';dotenv.config({ path: './../.env'});
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
@@ -14,7 +14,7 @@ const userController = {
           email: req.body.email,
           name: req.body.name,
           password: hasPassword,
-          user_type_id: req.body.user_type_id
+          role: req.body.role
         })
 
         const registeredUser = await user.save();
@@ -28,7 +28,7 @@ const userController = {
           return await res.status(400).send(error)
       }
   },
-  login: async ( req, res ) => {
+login: async ( req, res ) => {
     // Create a new user
     try {
       const user = await User.findOne({ email: req.body.email });
@@ -38,12 +38,22 @@ const userController = {
                 if (!validPass) return res.status(401).send("Mobile/Email or Password is wrong");
 
                 // Create and assign token
-                let payload = { id: user._id, user_type_id: user.user_type_id };
+                let payload = { id: user._id, role: user.role};
                 const token = jwt.sign(payload, process.env.JWT_KEY);
-
                 return await res.status(200).header("auth-token", token).send({ "token": token });
             }
 
+    } catch (error) {
+       return await  res.status(400).send(error)
+    }
+},
+delete: async ( req, res ) => {
+    // Create a new user
+    const id = req.params.id;
+    try {
+      const deleted = await User.findByIdAndDelete( { _id: id } );
+      return res.status(200).send("User Deleted!");
+      
     } catch (error) {
        return await  res.status(400).send(error)
     }

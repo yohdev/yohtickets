@@ -12,7 +12,7 @@ export const verifyToken = async (req, res, next) => {
         let verifiedUser = jwt.verify(token, process.env.JWT_KEY);   // config.TOKEN_SECRET => 'secretKey'
         if (!verifiedUser) return res.status(401).send('Unauthorized request')
 
-        req.user = verifiedUser; // user_id & user_type_id
+        req.user = verifiedUser; // user_id & role
         next();
 
     } catch (error) {
@@ -23,13 +23,13 @@ export const verifyToken = async (req, res, next) => {
 }
 
 export const IsUser = async (req, res, next) => {
-    if (req.user.user_type_id === 'user') {
+    if (req.user.role=== 'user') {
        return  await next();
     }
     return await res.status(401).send("Unauthorized!");   
 }
 export const IsAdmin = async (req, res, next) => {
-    if (req.user.user_type_id === 'admin') {
+    if (req.user.role=== 'admin') {
         return await next();
     }
     return await res.status(401).send("Unauthorized!");
