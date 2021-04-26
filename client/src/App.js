@@ -1,15 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
-const axios = require('axios').default;
 
 function App() {
-
-  axios.get('/api/values/current')
-  .then(function (response) {
-    // handle success
-    console.log(response);
-  })
-
   return (
     <div className="App">
       <header className="App-header">
