@@ -1,7 +1,12 @@
 // Express App Setup
 import express from 'express';
+import cors from 'cors';
 import dotenv from 'dotenv';
+
 dotenv.config({ path: '.env'})
+
+
+
 
 // ENV
 const port = process.env.PORT || 5000;
@@ -17,6 +22,7 @@ InitiateMongoServer();
 // Import Routes
 import { userRoutes } from './users/userRoutes.js';
 
+app.use(cors());
 // Express route handlers
 app.use('/api/users', userRoutes);
 
