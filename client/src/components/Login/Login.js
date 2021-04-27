@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
 import './Login.css';
 
 async function loginUser(credentials) {
@@ -27,6 +29,7 @@ export default function Login({ setToken }) {
   }
 
   return(
+    <Container maxWidth="sm">
     <div className="login-wrapper">
       <h1>Please Log In</h1>
       <form onSubmit={handleSubmit}>
@@ -39,10 +42,11 @@ export default function Login({ setToken }) {
           <input type="password" onChange={e => setPassword(e.target.value)}/>
         </label>
         <div>
-          <button type="submit">Submit</button>
+        <Button variant="contained" type="submit">Submit</Button>
         </div>
       </form>
     </div>
+    </Container>
   )
 }
 
