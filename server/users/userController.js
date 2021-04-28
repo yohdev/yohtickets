@@ -49,10 +49,24 @@ login: async ( req, res ) => {
 },
 delete: async ( req, res ) => {
     // Create a new user
-    const id = req.params.id;
+    const id = req.body.id;
     try {
       const deleted = await User.findByIdAndDelete( { _id: id } );
       return res.status(200).send("User Deleted!");
+      
+    } catch (error) {
+       return await  res.status(400).send(error)
+    }
+},
+getuser: async ( req, res ) => {
+    // Create a new user
+    const email = req.body.email;
+    console.log(email);
+
+    try {
+    
+      const finduser = await User.find({email: email});
+      return res.status(200).send({user:finduser});
       
     } catch (error) {
        return await  res.status(400).send(error)

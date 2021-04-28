@@ -6,6 +6,7 @@ const router = express.Router();
 // User routes
 router.route('/register').post(userController.register);
 router.route('/login').post(userController.login);
+router.route('/:id').get(userController.getuser);
 router.route('/delete/:id').delete(userController.delete);
 
 // Auth user only
