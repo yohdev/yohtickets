@@ -39,8 +39,9 @@ login: async ( req, res ) => {
 
                 // Create and assign token
                 let payload = { id: user._id, role: user.role};
+                let role = user.role;
                 const token = jwt.sign(payload, process.env.JWT_KEY);
-                return await res.status(200).header("auth-token", token).send({ "token": token });
+                return await res.status(200).header("auth-token", token).send({ "token": token, role });
             }
 
     } catch (error) {
@@ -60,12 +61,12 @@ delete: async ( req, res ) => {
 },
 getuser: async ( req, res ) => {
     // Create a new user
-    const email = req.body.email;
+    const email = req.params.role;
     console.log(email);
 
     try {
     
-      const finduser = await User.find({email: email});
+      const finduser = await User.find({role: email});
       return res.status(200).send({user:finduser});
       
     } catch (error) {
