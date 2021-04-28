@@ -4,7 +4,7 @@ import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import './Login.css';
 
-async function loginUser(credentials) {
+async function loginUser(credentials,email) {
   return fetch('http://localhost:8080/api/users/login', {
     method: 'POST',
     headers: {
@@ -13,7 +13,16 @@ async function loginUser(credentials) {
     body: JSON.stringify(credentials)
   })
     .then(data => data.json())
+    .then(fetch('http://localhost:8080/api/users/:email', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(email)
+    }))
+    .then(data => data.json())
  }
+
 
 export default function Login({ setToken }) {
   const [email, setUserEmail] = useState();

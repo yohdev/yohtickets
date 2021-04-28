@@ -18,7 +18,7 @@ function App() {
     <div className="wrapper">
       <BrowserRouter>
         <Switch>
-          <Route path="/dashboard">
+          <Route path="/">
             <Dashboard />
           </Route>
           <Route path="/preferences">
