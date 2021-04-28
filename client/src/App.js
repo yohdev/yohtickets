@@ -5,13 +5,17 @@ import Login from './components/Login/Login';
 import Dashboard from './components/Dashboard/Dashboard';
 import Preferences from './components/Preferences/Preferences';
 import useToken from './useToken';
+import useRole from './useRole';
 
 function App() {
 
   const { token, setToken } = useToken();
+  const { role, setRole } = useRole();
 
-  if(!token) {
-    return <Login setToken={setToken} />
+  
+
+  if(!token ) {
+    return <Login setToken={setToken} setRole={setRole} />
   }
 
   return (
