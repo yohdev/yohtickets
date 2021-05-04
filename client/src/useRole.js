@@ -12,6 +12,7 @@ export default function useRole() {
   const saveRole = userRole => {
     localStorage.setItem('role', JSON.stringify(userRole));
     setRole(userRole.role);
+    console.log(userRole);
   };
 
   return {

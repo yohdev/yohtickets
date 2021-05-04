@@ -18,6 +18,10 @@ function App() {
     return <Login setToken={setToken} setRole={setRole} />
   }
 
+  if(role == 'admin'){
+    return <div>TEST</div>
+  }
+
   return (
     <div className="wrapper">
       <BrowserRouter>
