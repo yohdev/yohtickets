@@ -39,8 +39,9 @@ login: async ( req, res ) => {
 
                 // Create and assign token
                 let payload = { id: user._id, role: user.role};
+                let role = user.role;
                 const token = jwt.sign(payload, process.env.JWT_KEY);
-                return await res.status(200).header("auth-token", token).send({ "token": token });
+                return await res.status(200).header("auth-token", token).send({ "token": token, role });
             }
 
     } catch (error) {
