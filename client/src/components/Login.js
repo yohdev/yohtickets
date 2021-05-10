@@ -1,94 +1,78 @@
-import React, { Component } from 'react';
+
+import React, { useContext, useState } from 'react';
+import { UserContext } from '../contexts/UserContext';
 import AppBar from './AppBar';
 import { Container } from 'reactstrap';
 import { Form, Alert, FormGroup, Input, Label, Row, Col } from "reactstrap";
 import {Button} from 'react-bootstrap';
-import AuthenticationService from "../AuthenticationService";
 
-class Login extends Component {sm
+const Login = () => {
+	const user = useContext(UserContext);
 
-  constructor(props) {
-    super(props);
+  // let changeHandler = (event) => {
+  //   email = event.target.name;
+  //   password = event.target.value;
+    
+  // }
 
-    this.state = {
-      email: "",
-      password: "",
-      error: ""
-    };
-  }
+  console.log(user);
+  
 
-  changeHandler = (event) => {
-    let nam = event.target.name;
-    let val = event.target.value;
-    this.setState({[nam]: val});
-  }
+	return (
 
-  doLogin = async (event) => {
-    event.preventDefault();
+    <div>
+      <AppBar/>
+      <Container fluid>
+        <Row style={{marginTop:"20px"}}>
+        <Col sm="12" md={{ size: 3, offset: 4 }}>
+          <div style={{marginBottom: "10px"}}>
+          </div>
+          <Form  onSubmit={user.changeAuthStatus}>
+            <FormGroup>
+              <Label for="email"><strong>email</strong></Label>
+              <Input autoFocus 
+                type="text"
+                name="email" id="email"
+                value={user.email}
+                placeholder="Enter email"
+                autoComplete="email"
+                onChange={e => user.setEmail(e.target.value)}
+              />
+            </FormGroup>
 
-    AuthenticationService
-        .signin(this.state.email, 
-                  this.state.password)
-    //   .then(
-    //     () => {
-    //       this.props.history.push('/profile');
-    //     },
-    //     error => {
-    //       console.log("Login fail: error = { " + error.toString() + " }");
-    //       this.setState({error: "Can not signin successfully ! Please check email/password again"});
-    //     }
-    // );
-  }
+            <FormGroup>
+              <Label for="password"><strong>Password</strong></Label>
+              <Input type="password" 
+                name="password" id="password"
+                value={user.password}
+                placeholder="Enter Password"
+                autoComplete="password"
+                onChange={e => user.setPassword(e.target.value)}
+              />
+            </FormGroup>
 
-  render() {
-    return ( 
-      <div>
-        <AppBar/>
-        <Container fluid>
-          <Row style={{marginTop:"20px"}}>
-          <Col sm="12" md={{ size: 3, offset: 4 }}>
-            <div style={{marginBottom: "10px"}}>
-            </div>
-            <Form  onSubmit={this.doLogin}>
-              <FormGroup>
-                <Label for="email"><strong>email</strong></Label>
-                <Input autoFocus 
-                  type="text"
-                  name="email" id="email"
-                  value={this.state.email}
-                  placeholder="Enter email"
-                  autoComplete="email"
-                  onChange={this.changeHandler}
-                />
-              </FormGroup>
-
-              <FormGroup>
-                <Label for="password"><strong>Password</strong></Label>
-                <Input type="password" 
-                  name="password" id="password"
-                  value={this.state.password}
-                  placeholder="Enter Password"
-                  autoComplete="password"
-                  onChange={this.changeHandler}
-                />
-              </FormGroup>
-
-              <Button type="submit" variant="primary" size="lg" block>
-                Sign In
-              </Button>
-              {/* {
-                this.state.error && (
-                  <Alert color="danger">
-                    {this.state.error}
-                  </Alert>
-                )
-              } */}
-            </Form>
-            </Col>
-          </Row>
-        </Container>
-      </div>);
-  }
-}
+            <Button type="submit" variant="primary" size="lg" block>
+              Sign In
+            </Button>
+            {/* {
+              this.state.error && (
+                <Alert color="danger">
+                  {this.state.error}
+                </Alert>
+              )
+            } */}
+          </Form>
+          </Col>
+        </Row>
+      </Container>
+    </div>
+			// <p
+			// 	style={{ textAlign: 'center' }} 
+			// 	onClick={changeAuthStatus}
+			// >
+			// 	{ isLoggedIn ? 'Admin' : 'Client'}
+			// </p>
+	);
+};
 
 export default Login;
