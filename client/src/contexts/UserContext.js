@@ -1,26 +1,30 @@
 
-import React, { createContext, useState } from 'react';
-import AuthenticationService from '../AuthenticationService';
+import React, { createContext, useState, useReducer } from 'react';
+import { userReducer } from '../reducers/UserReducer';
+import AuthenticationService from '../api/AuthenticationService';
 
 export const UserContext = createContext();
 
-const UserContextProvider = (props) => {
+const UserContextProvider = ({ children }) => {
 
-	const [isLoggedIn, setisLoggedIn] = useState(false);
-	const [email, setEmail ] = useState('');
-	const [password, setPassword ] = useState('');
+	const [ user, dispatch ] = useReducer(userReducer, [{ 
+			isLoggedIn: false ,
+			email: '',
+			password: '',
+			token: ''
+		}
+	]);
 
 
-	const changeAuthStatus = () => {
-	setEmail(email);
-	setPassword(password);
-		setisLoggedIn(!isLoggedIn);
-		AuthenticationService.signin(email, setPassword);
-	};
+	// const changeAuthStatus = e => {
+	// 	e.preventDefault();
+
+	// 	// AuthenticationService.signin(email, setPassword);
+	// };
 
 	return(
-		<UserContext.Provider value={{ isLoggedIn, email, password, changeAuthStatus, setEmail, setPassword }} >
-			{ props.children }
+		<UserContext.Provider value={{ user, dispatch }} >
+			{ children }
 		</UserContext.Provider>
 	);
 }
