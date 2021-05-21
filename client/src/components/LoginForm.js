@@ -7,22 +7,30 @@ import {Button} from 'react-bootstrap';
 const LoginForm = () => {
 
     const { user, dispatch } = useContext(UserContext);
+    const [ email, setEmail ] = useState('');
     
+   
     // console.log(user)
 
-    const handleChange = e => {
-
+    const handleEmailChange = e => {
+      setEmail(e.target.value);
+      console.log(email);
+      
     };
 
 
     const handleFormSubmit = e => {
       e.preventDefault();
-      console.log(e)
+
+      
+
+      // console.log(e.target)
+      
 
       dispatch({ 
         type: 'LOGIN_USER', 
         isLoggedIn: true, 
-        email: 'email',
+        email: email,
         password: 'password',
         token: 'token'
       });
@@ -38,7 +46,7 @@ return (
       name="email" id="email"
       placeholder="Enter email"
       autoComplete="email"
-      onChange={handleChange}
+      onChange={handleEmailChange}
     />
   </FormGroup>
 
@@ -48,7 +56,7 @@ return (
       name="password" id="password"
       placeholder="Enter Password"
       autoComplete="password"
-      onChange={handleChange}
+      // onChange={handlePassChange}
     />
   </FormGroup>
 
