@@ -35,12 +35,6 @@ const Login = () => {
         </Row>
       </Container>
     </div>
-			// <p
-			// 	style={{ textAlign: 'center' }} 
-			// 	onClick={changeAuthStatus}
-			// >
-			// 	{ isLoggedIn ? 'Admin' : 'Client'}
-			// </p>
 	);
 };
 
