@@ -11,14 +11,6 @@ const Login = () => {
 
   const { user } = useContext(UserContext);
 
-  // let changeHandler = (event) => {
-  //   email = event.target.name;
-  //   password = event.target.value;
-    
-  // }
-
-  // console.log(user);
-
   useEffect(() => {
     if( user[0].success){
       console.log(user[0].success + ' user logged in');
