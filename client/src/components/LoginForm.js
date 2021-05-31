@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../contexts/UserContext';
 
 import { Form, Alert, FormGroup, Input, Label, Row, Col } from "reactstrap";
@@ -8,33 +8,56 @@ const LoginForm = () => {
 
     const { user, dispatch } = useContext(UserContext);
     const [ email, setEmail ] = useState('');
+    const [ password, setPassword ] = useState('');
+    let [ data, setData ] = useState('');
+    const [ success, seSuccess ] = useState(false);
     
-   
-    // console.log(user)
-
+    //handle field changes
     const handleEmailChange = e => {
       setEmail(e.target.value);
-      console.log(email);
       
     };
 
+    const handlePassChange = e => {
+      setPassword(e.target.value);
+    }
 
+    //onSubmit
     const handleFormSubmit = e => {
       e.preventDefault();
 
-      
+      const promise = Auth();
+      const promise2 = promise.then(() => {
 
-      // console.log(e.target)
-      
+        setData(data = {
+          email: email,
+          password: password
+        });
 
-      dispatch({ 
-        type: 'LOGIN_USER', 
-        isLoggedIn: true, 
-        email: email,
-        password: 'password',
-        token: 'token'
-      });
+      }).then(() => {
+
+        dispatch({ 
+          type: 'LOGIN_USER', 
+          isLoggedIn: true, 
+          email: email,
+          password: password,
+          token: 'token'
+        });
+
+        console.log(data);
+        
+      })
       
+      async function Auth() {
+
+        try {
+          setEmail(e.target.value);
+          setPassword(e.target.value);
+
+        } catch (error) {
+          console.log('err')
+        }
+      }
     };
     
 return (
@@ -56,7 +79,7 @@ return (
       name="password" id="password"
       placeholder="Enter Password"
       autoComplete="password"
-      // onChange={handlePassChange}
+      onChange={handlePassChange}
     />
   </FormGroup>
 
