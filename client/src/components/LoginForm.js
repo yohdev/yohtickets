@@ -38,7 +38,7 @@ const LoginForm = () => {
 
         dispatch({ 
           type: 'LOGIN_USER', 
-          isLoggedIn: true, 
+          isLoggedIn: false, 
           email: email,
           password: password,
           token: 'token'
