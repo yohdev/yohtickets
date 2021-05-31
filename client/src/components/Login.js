@@ -1,5 +1,6 @@
 
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
+import { UserContext } from '../contexts/UserContext';
 import AppBar from './AppBar';
 import { Container } from 'reactstrap';
 import { Row, Col } from "reactstrap";
@@ -7,7 +8,8 @@ import LoginForm from './LoginForm';
 import {Button} from 'react-bootstrap';
 
 const Login = () => {
-	// const user = useContext(UserContext);
+
+  const { user } = useContext(UserContext);
 
   // let changeHandler = (event) => {
   //   email = event.target.name;
@@ -16,6 +18,15 @@ const Login = () => {
   // }
 
   // console.log(user);
+
+  useEffect(() => {
+    if( user[0].success){
+      console.log(user[0].success + ' user logged in');
+    } else {
+      console.log('not logged in')
+    }
+    // localStorage.setItem("user", JSON.stringify(action.payload.user));
+  })
   
 
 	return (

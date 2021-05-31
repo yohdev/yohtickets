@@ -9,6 +9,7 @@ const UserContextProvider = ({ children }) => {
 
 	const [ user, dispatch ] = useReducer(userReducer, [{ 
 			isLoggedIn: false ,
+			success: false,
 			email: '',
 			password: '',
 			token: ''

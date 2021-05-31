@@ -10,7 +10,7 @@ const LoginForm = () => {
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     let [ data, setData ] = useState('');
-    const [ success, seSuccess ] = useState(false);
+    const [ success, setSuccess ] = useState(false);
     
     //handle field changes
     const handleEmailChange = e => {
@@ -29,22 +29,25 @@ const LoginForm = () => {
       const promise = Auth();
       const promise2 = promise.then(() => {
 
+        setSuccess(true);
         setData(data = {
           email: email,
-          password: password
+          password: password,          
         });
 
       }).then(() => {
 
         dispatch({ 
           type: 'LOGIN_USER', 
-          isLoggedIn: false, 
+          isLoggedIn: false,
+          success: true, 
           email: email,
           password: password,
           token: 'token'
         });
 
         console.log(data);
+        
         
       })
       
